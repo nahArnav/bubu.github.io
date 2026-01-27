@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Valentine</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --bg-color: #ffe6e9;
+            --accent-color: #ff3366;
+            --text-color: #4a4a4a;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            transition: height 0.3s ease;
+        }
+
+        /* Page Visibility Handling */
+        .page {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { color: var(--accent-color); margin-bottom: 20px; }
+        p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; }
+
+        /* Input Field for Login */
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            outline: none;
+            text-align: center;
+        }
+
+        input:focus { border-color: var(--accent-color); }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: var(--accent-color);
+            color: white;
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #e62e5c;
+        }
+
+        .btn-secondary { background-color: #ddd; color: #555; }
+
+        /* Photo Grid */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 5px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Typewriter Effect */
+        .typewriter h1 {
+            overflow: hidden;
+            border-right: .15em solid orange;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .05em;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+            max-width: fit-content;
+        }
+
+        /* Adjustments for mobile to prevent typewriter breaking */
+        @media (max-width: 500px) {
+            .typewriter h1 { white-space: normal; border: none; animation: none; }
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: orange; } }
+
+        /* The Timer */
+        #timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+
+        <div id="page0" class="page active">
+            <h1>🔒 Security Check</h1>
+            <p>To access this site, please enter the passcode.<br><small>(Hint: It's the day we confessed(DDMMYYYY))</small></p>
+            <input type="password" id="passcode" placeholder="Enter Code">
+            <br>
+            <button class="btn" onclick="checkPass()">Unlock</button>
+            <p id="errorMsg" style="color: red; display: none; margin-top: 10px;">Access Denied!</p>
+        </div>
+
+        <div id="page1" class="page">
+            <h1>Hey, [Her Name]</h1>
+            <p>I created a little something for you. Just a small collection of reasons why you are special.</p>
+            <button class="btn" onclick="nextPage(2)">Start Journey</button>
+        </div>
+
+        <div id="page2" class="page">
+            <h1>Counting the Moments</h1>
+            <p>Do you know how long it's been since we first started talking? (yup since the dude perfect trickshot thingy😋)</p>
+            <div id="timer">Loading...</div>
+            <p>And every second, every moment has been worth it.</p>
+            <button class="btn" onclick="nextPage(3)">See Memories</button>
+        </div>
+
+        <div id="page3" class="page">
+            <h1>Our Highlights</h1>
+            <div class="photo-gallery">
+                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+1" alt="Memory 1"></div>
+                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+2" alt="Memory 2"></div>
+                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+3" alt="Memory 3"></div>
+                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+4" alt="Memory 4"></div>
+            </div>
+            <button class="btn" onclick="nextPage(4)">Read Note</button>
+        </div>
+
+        <div id="page4" class="page">
+            <h1>Something True</h1>
+            <p style="font-style: italic; white-space: pre-line;">
+                "They say time is relative,
+                and physics might agree.
+                But my world only finds its steady state,
+                when you are next to me."
+
+                (Or insert your favorite Shayari here)
+            </p>
+            <button class="btn" onclick="nextPage(5)">One Last Thing...</button>
+        </div>
+
+        <div id="page5" class="page typewriter">
+            <h1>Will you be my Valentine?</h1>
+            <div style="margin-top: 30px; height: 100px; position: relative;">
+                <button class="btn" id="yesBtn" onclick="celebrate()">YES!</button>
+                <button class="btn btn-secondary" id="noBtn" onmouseover="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="page6" class="page">
+            <h1 style="font-size: 3rem;">💖 YAY! 💖</h1>
+            <p>I knew you'd make me the happiest person!</p>
+            <p>See you soon! xoxo</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const SECRET_CODE = "28092025"; // Change this to your password
+        const START_DATE = "2024-04-25"; // YYYY-MM-DD format (When you met)
+
+        // --- AUDIO HANDLE ---
+        const music = document.getElementById('bgMusic');
+
+        // --- NAVIGATION ---
+        function nextPage(pageNumber) {
+            // Hide current
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+            // Show next
+            const target = document.getElementById(`page${pageNumber}`);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+
+        // --- LOGIN LOGIC ---
+        function checkPass() {
+            const input = document.getElementById('passcode').value;
+            if (input === SECRET_CODE) {
+                // Try to play music on unlock (User interaction triggers it)
+                music.play().catch(error => console.log("Music blocked by browser policy"));
+                nextPage(1);
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                // Shake effect logic could go here
+            }
+        }
+
+        // --- TIMER LOGIC ---
+        function updateTimer() {
+            const start = new Date(START_DATE);
+            const now = new Date();
+            const diff = now - start;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("timer").innerText =
+                `${days} Days, ${hours} Hours, ${minutes} Mins, ${seconds} Secs`;
+        }
+        setInterval(updateTimer, 1000);
+
+        // --- MOVING BUTTON LOGIC ---
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+
+            btn.style.position = 'fixed'; // Breaks it out of the container flow
+            btn.style.left = `${Math.max(10, x)}px`; // Ensure it stays visible
+            btn.style.top = `${Math.max(10, y)}px`;
+        }
+
+        // --- CELEBRATION ---
+        function celebrate() {
+            nextPage(6);
+            document.body.style.backgroundColor = "#ffccda";
+
+            // Simple Confetti using Emoji rain (No external library needed)
+            setInterval(createHeart, 200);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerText = "❤️";
+            heart.style.position = "fixed";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "-50px";
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            heart.style.transition = "top 3s linear, opacity 3s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.top = "100vh";
+                heart.style.opacity = "0";
+            }, 100);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
