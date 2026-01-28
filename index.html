@@ -54,6 +54,7 @@
         }
 
         h1 { color: var(--accent-color); margin-bottom: 20px; }
+        h2 { color: var(--accent-color); margin-bottom: 20px; }
         p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; }
 
         /* Input Field for Login */
@@ -102,12 +103,18 @@
             background: white;
             padding: 5px;
             border: 1px solid #eee;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 0 0 rgba(0,0,0,0.05);
         }
 
         .photo-frame img {
             width: 100%;
-            height: 150px;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-frame video{
+            width: 100%;
+            height: 200px;
             object-fit: cover;
             display: block;
         }
@@ -147,41 +154,43 @@
 <body>
 
     <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="Perfect.mp3" loop type="audio/mpeg">
     </audio>
 
     <div class="container">
 
         <div id="page0" class="page active">
-            <h1>🔒 Security Check</h1>
-            <p>To access this site, please enter the passcode.<br><small>(Hint: It's the day we confessed(DDMMYYYY))</small></p>
-            <input type="password" id="passcode" placeholder="Enter Code">
+            <h1>🔒 Passy Daaloo😋</h1>
+            <p>Aage badhne ke liye password daalna padega😛<br><small>(Hint: It's the day we confessed!!!!!!!(DDMMYYYY))</small></p>
+            <input type="password" id="passcode" autocomplete="off" placeholder="Enter Code">
             <br>
             <button class="btn" onclick="checkPass()">Unlock</button>
             <p id="errorMsg" style="color: red; display: none; margin-top: 10px;">Access Denied!</p>
         </div>
 
         <div id="page1" class="page">
-            <h1>Hey, [Her Name]</h1>
-            <p>I created a little something for you. Just a small collection of reasons why you are special.</p>
+            <h1>Hellu Puchiii</h1>
+            <p>Ye dekhoo bubuu maine aapke liyee banaayaa haii</p>
             <button class="btn" onclick="nextPage(2)">Start Journey</button>
         </div>
 
         <div id="page2" class="page">
             <h1>Counting the Moments</h1>
-            <p>Do you know how long it's been since we first started talking? (yup since the dude perfect trickshot thingy😋)</p>
+            <p>Do you know how long it's been since we first started talking? (yup since the dude perfect trickshot thingy😛😛)</p>
             <div id="timer">Loading...</div>
-            <p>And every second, every moment has been worth it.</p>
+            <p>And every second, every moment has been worth it. Now I can't imagine a single moment without you baby. Mwahhhh</p>
             <button class="btn" onclick="nextPage(3)">See Memories</button>
         </div>
 
         <div id="page3" class="page">
-            <h1>Our Highlights</h1>
+            <h2>Our yappy yaps and kuchupuchu momentsss (Aur bohot saare banaane haii)</h2>
             <div class="photo-gallery">
-                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+1" alt="Memory 1"></div>
-                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+2" alt="Memory 2"></div>
-                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+3" alt="Memory 3"></div>
-                <div class="photo-frame"><img src="https://via.placeholder.com/150/FFB6C1/000000?text=Us+4" alt="Memory 4"></div>
+                <div class="photo-frame"><img src="photu.jpg" alt="Memory 1"></div>
+                <div class="photo-frame"><img src="Photu1.jpg" alt="Memory 2"></div>
+                <div class="photo-frame"><img src="Photu2.jpg" alt="Memory 3"></div>
+                <div class="photo-frame"><img src="Photu3.jpeg" alt="Memory 4"></div>
+                <div class="photo-frame"><img src="Photu4.jpeg" alt="Memory 5"></div>
+                <div class="photo-frame"><video src="Vidu1.mp4" autoplay muted loop alt="Memory 6"></div>
             </div>
             <button class="btn" onclick="nextPage(4)">Read Note</button>
         </div>
@@ -189,18 +198,27 @@
         <div id="page4" class="page">
             <h1>Something True</h1>
             <p style="font-style: italic; white-space: pre-line;">
-                "They say time is relative,
-                and physics might agree.
-                But my world only finds its steady state,
-                when you are next to me."
-
-                (Or insert your favorite Shayari here)
+                Ishana, bubu, I just want you to know how much you mean to me bbg
+                I fw you so soo muchh. I absolutely love and adore us
+                I want us to stick together and be by each other's side always cutu
+                I wanna be your safe space and I want you to be mine🫶🏻
+                Chalo zyaada bakar bakar nahi kalta hu
+                Woh toh apna chalta rahega, hihihi YAPPY YAPP
+                Just know that,
+                I do not know
+                If I
+                Will ever be complete,
+                but I know whatever I am,
+                YOU,
+                Will always be the rest of me...
+                
+                AGAINNN, I fw youu so soo SOOOOOOOO much puchii🤍
             </p>
             <button class="btn" onclick="nextPage(5)">One Last Thing...</button>
         </div>
 
         <div id="page5" class="page typewriter">
-            <h1>Will you be my Valentine?</h1>
+            <h1>Ishana, Will you be my Valentine?</h1>
             <div style="margin-top: 30px; height: 100px; position: relative;">
                 <button class="btn" id="yesBtn" onclick="celebrate()">YES!</button>
                 <button class="btn btn-secondary" id="noBtn" onmouseover="moveButton()">No</button>
@@ -209,8 +227,8 @@
 
         <div id="page6" class="page">
             <h1 style="font-size: 3rem;">💖 YAY! 💖</h1>
-            <p>I knew you'd make me the happiest person!</p>
-            <p>See you soon! xoxo</p>
+            <p>I knew you'd make me the happiest person! MWAHHH MWAHHH MWAHHHHHHHHHHH</p>
+            <p>See you soon! 😋😋</p>
         </div>
 
     </div>
